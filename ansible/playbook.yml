@@ -1,0 +1,18 @@
+---
+- name: Deploy to Tomcat
+  hosts: web
+  become: yes
+  tasks:
+    -name: copy WAR to Tomcat
+     copy: 
+       src: "/var/snap/jenkins/4874/workspace/MavenansibleWebApp2-CICD/target/MavenansibleWebApp2.war"
+       dest: "/opt/tomcat/webapps/MavenansibleWebApp2.war"
+       remote_src : no
+       
+       
+     -name: Restart Tomcat
+     systemd:
+       name: tomcat
+       status: restarted
+    
+
